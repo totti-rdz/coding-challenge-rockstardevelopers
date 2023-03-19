@@ -2,6 +2,10 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
+import dotenv from 'dotenv';
+
+// Laden Sie die Umgebungsvariablen aus der .env-Datei
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -52,7 +56,7 @@ app.post("/projects", (req: Request, res: Response) => {
   const { name, client } = req.body;
   const newProject: Project = { id: uuidv4(), name, client };
   const data = loadData();
-  data.projects.push(newProject);
+  data.projects = [newProject];
   saveData(data);
   res.status(201).json(newProject);
 });
@@ -83,5 +87,5 @@ app.post("/timeEntries", (req: Request, res: Response) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port 3000`);
 });
