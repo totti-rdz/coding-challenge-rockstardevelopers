@@ -66,6 +66,10 @@ Lizenz
 
 Dieses Projekt ist lizenzfrei.
 
+## BUGS
+* Nachdem die Anwendung läuft und versucht ein Mitarbeiter anzulegen (POST http://localhost:3000/employees), bekommt man einen Fehler (Error: connect ECONNREFUSED 127.0.0.1:3000)
+* Beim hinzufügen eines Projektes, werden vorhandene Projekte überschrieben
+
 ## Offene TODOS
 * Es dürfen keine 2 Projekte mit dem gleichen Namen beim gleichen Kunden existieren
 * Beim Zeiteintrag soll es möglich sein, das Datum anzugeben
