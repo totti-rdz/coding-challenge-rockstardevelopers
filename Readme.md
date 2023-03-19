@@ -65,3 +65,14 @@ Um weitere Funktionen oder Anpassungen an der API vorzunehmen, ändere den TypeS
 Lizenz
 
 Dieses Projekt ist lizenzfrei.
+
+## Offene TODOS
+* Es dürfen keine 2 Projekte mit dem gleichen Namen beim gleichen Kunden existieren
+* Beim Zeiteintrag soll es möglich sein, das Datum anzugeben
+* An einem Tag dürfen nicht mehr als 8 Stunden erfasst werden
+* Die Api soll die Abfrage aller Projekte ermöglichen
+* Die Api soll die Abfrage aller Mitarbeiter ermöglichen
+* Die API soll die Abfrage aller Zeiteinträge für einen Mitarbeiter ermöglichen
+
+## Optimierungspotentiale
+* Was könnte man tun, um die Code-Struktur hinsichtlich Flexibilität, Skalierbarkeit und Wartbarkeit zu optimieren?
