@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "install:all": "npm i && cd frontend && npm i",
+    "start": "npm run start:frontend && ts-node src/server.ts",
+    "start:frontend": "cd frontend && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
