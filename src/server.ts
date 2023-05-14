@@ -111,6 +111,15 @@ app.post("/employees", (req: Request, res: Response) => {
   res.status(201).json(newEmployee);
 });
 
+app.get("/timeEntries", (_, res: Response) => {
+  const data = loadData();
+  if (!data || !data.timeEntries || data.timeEntries.length === 0) {
+    res.status(400).json({ error: "No timeEntries found" });
+    return;
+  }
+  res.status(200).json(data.timeEntries);
+});
+
 const isTimeLimitExceeded = (
   newTimeEntry: TimeEntry,
   existingTimeEntries: TimeEntry[]
