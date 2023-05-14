@@ -60,10 +60,22 @@ const saveData = (data: {
   fs.writeFileSync(dataFile, dataJson);
 };
 
+const isProjectDuplicate = (newProject: Project, existingProjects: Project[]) =>
+  existingProjects.some(
+    (project) =>
+      project.client === newProject.client && project.name === newProject.name
+  );
+
 app.post("/projects", (req: Request, res: Response) => {
   const { name, client } = req.body;
   const newProject: Project = { id: uuidv4(), name, client };
   const data = loadData();
+
+  if (isProjectDuplicate(newProject, data.projects)) {
+    res.status(400).json({ error: "Project already exists" });
+    return;
+  }
+
   data.projects.push(newProject);
   saveData(data);
   res.status(201).json(newProject);
