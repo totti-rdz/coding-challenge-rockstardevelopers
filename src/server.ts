@@ -7,6 +7,8 @@ import dotenv from "dotenv";
 // Laden Sie die Umgebungsvariablen aus der .env-Datei
 dotenv.config();
 
+const maxTimeLimit = 2 * 60;
+
 const app = express();
 app.use(express.json());
 
@@ -91,6 +93,16 @@ app.post("/employees", (req: Request, res: Response) => {
   res.status(201).json(newEmployee);
 });
 
+const isTimeLimitExceeded = (
+  newTimeEntry: TimeEntry,
+  existingTimeEntries: TimeEntry[]
+) =>
+  newTimeEntry.minutes +
+    existingTimeEntries
+      .filter((entry) => entry.date === newTimeEntry.date)
+      .reduce((totalTime, entry) => totalTime + entry.minutes, 0) >
+  maxTimeLimit;
+
 app.post("/timeEntries", (req: Request, res: Response) => {
   const { date, employeeId, minutes, projectId, task } = req.body;
   const newTimeEntry: TimeEntry = {
@@ -102,6 +114,11 @@ app.post("/timeEntries", (req: Request, res: Response) => {
     date,
   };
   const data = loadData();
+
+  if (isTimeLimitExceeded(newTimeEntry, data.timeEntries)) {
+    res.status(400).json({ error: "Time limit for this day exceeded" });
+    return;
+  }
   data.timeEntries.push(newTimeEntry);
   saveData(data);
   res.status(201).json(newTimeEntry);
