@@ -2,7 +2,7 @@
 import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 // Laden Sie die Umgebungsvariablen aus der .env-Datei
 dotenv.config();
@@ -33,7 +33,11 @@ interface TimeEntry {
 
 const dataFile = "./data.json";
 
-const loadData = (): { projects: Project[]; employees: Employee[]; timeEntries: TimeEntry[] } => {
+const loadData = (): {
+  projects: Project[];
+  employees: Employee[];
+  timeEntries: TimeEntry[];
+} => {
   try {
     const dataBuffer = fs.readFileSync(dataFile);
     const dataJson = dataBuffer.toString();
@@ -47,7 +51,11 @@ const loadData = (): { projects: Project[]; employees: Employee[]; timeEntries: 
   }
 };
 
-const saveData = (data: { projects: Project[]; employees: Employee[]; timeEntries: TimeEntry[] }): void => {
+const saveData = (data: {
+  projects: Project[];
+  employees: Employee[];
+  timeEntries: TimeEntry[];
+}): void => {
   const dataJson = JSON.stringify(data);
   fs.writeFileSync(dataFile, dataJson);
 };
