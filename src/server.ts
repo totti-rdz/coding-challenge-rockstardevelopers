@@ -93,6 +93,15 @@ app.post("/projects", (req: Request, res: Response) => {
   res.status(201).json(newProject);
 });
 
+app.get("/employees", (_, res: Response) => {
+  const data = loadData();
+  if (!data || !data.employees || data.employees.length === 0) {
+    res.status(400).json({ error: "No employees found" });
+    return;
+  }
+  res.status(200).json(data.employees);
+});
+
 app.post("/employees", (req: Request, res: Response) => {
   const { firstName, lastName, email } = req.body;
   const newEmployee: Employee = { id: uuidv4(), firstName, lastName, email };
