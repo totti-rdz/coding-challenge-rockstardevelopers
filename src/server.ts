@@ -64,7 +64,7 @@ app.post("/projects", (req: Request, res: Response) => {
   const { name, client } = req.body;
   const newProject: Project = { id: uuidv4(), name, client };
   const data = loadData();
-  data.projects = [newProject];
+  data.projects.push(newProject);
   saveData(data);
   res.status(201).json(newProject);
 });
