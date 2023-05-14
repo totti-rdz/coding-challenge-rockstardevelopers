@@ -29,6 +29,7 @@ interface TimeEntry {
   projectId: string;
   task: string;
   minutes: number;
+  date: string;
 }
 
 const dataFile = "./data.json";
@@ -91,13 +92,14 @@ app.post("/employees", (req: Request, res: Response) => {
 });
 
 app.post("/timeEntries", (req: Request, res: Response) => {
-  const { employeeId, projectId, task, minutes } = req.body;
+  const { date, employeeId, minutes, projectId, task } = req.body;
   const newTimeEntry: TimeEntry = {
     id: uuidv4(),
     employeeId,
     projectId,
     task,
     minutes,
+    date,
   };
   const data = loadData();
   data.timeEntries.push(newTimeEntry);
