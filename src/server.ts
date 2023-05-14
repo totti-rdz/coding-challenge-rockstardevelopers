@@ -69,6 +69,15 @@ const isProjectDuplicate = (newProject: Project, existingProjects: Project[]) =>
       project.client === newProject.client && project.name === newProject.name
   );
 
+app.get("/projects", (_, res: Response) => {
+  const data = loadData();
+  if (!data || !data.projects || data.projects.length === 0) {
+    res.status(400).json({ error: "No projects found" });
+    return;
+  }
+  res.status(200).json(data.projects);
+});
+
 app.post("/projects", (req: Request, res: Response) => {
   const { name, client } = req.body;
   const newProject: Project = { id: uuidv4(), name, client };
