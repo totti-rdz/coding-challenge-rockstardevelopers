@@ -3,14 +3,17 @@ import express, { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import dotenv from "dotenv";
+import path from "path";
 
 // Laden Sie die Umgebungsvariablen aus der .env-Datei
 dotenv.config();
 
-const maxTimeLimit = 2 * 60;
+const maxTimeLimit = 8 * 60;
 
 const app = express();
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
 
 interface Project {
   id: string;
